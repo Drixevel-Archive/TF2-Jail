@@ -12,8 +12,9 @@
 /*****************************/
 //Includes
 #include <sourcemod>
-#include <sourcemod-misc>
-#include <sourcemod-colors>
+#include <misc-sm>
+#include <misc-tf>
+#include <misc-colors>
 
 /*****************************/
 //ConVars
@@ -286,7 +287,7 @@ public int MenuHandler_ListMarkers(Menu menu, MenuAction action, int param1, int
 void StartCountdown(int client)
 {
 	float vecPos[3];
-	GetClientCrosshairOrigin(client, vecPos);
+	GetClientLookOrigin(client, vecPos);
 	vecPos[2] += 20.0;
 
 	CreateMarker(vecPos, "Ready?", "ui/trade_ready.wav");
@@ -334,7 +335,7 @@ public Action Timer_Countdown(Handle timer, DataPack pack)
 void PlaceMarker(int client, const char[] text)
 {
 	float vecPos[3];
-	GetClientCrosshairOrigin(client, vecPos);
+	GetClientLookOrigin(client, vecPos);
 	vecPos[2] += 20.0;
 
 	CreateMarker(vecPos, text);
@@ -342,7 +343,7 @@ void PlaceMarker(int client, const char[] text)
 
 void CreateMarker(float origin[3], const char[] text, const char[] sound = "misc/rd_finale_beep01.wav")
 {
-	TF2_CreateAnnotation(text, origin, 10.0, sound);
+	TF2_CreateAnnotationToAll(origin, text, 10.0, sound);
 
 	TE_SetupBeamRingPoint(origin, 300.0, 300.1, iLaserBeam, iHalo, 0, 10, 0.1, 2.0, 0.0, {255, 255, 255, 255}, 10, 0);
 	TE_SendToAll();
@@ -364,7 +365,7 @@ void CreatePointer(int client)
 	GetClientEyePosition(client, vecOrigin);
 
 	float vecPos[3];
-	GetClientCrosshairOrigin(client, vecPos);
+	GetClientLookOrigin(client, vecPos);
 
 	TE_SetupBeamPoints(vecOrigin, vecPos, iLaserBeam, iHalo, 5, 10, 10.0, 8.0, 8.0, 0, 0.0, {255, 255, 255, 255}, 10);
 	TE_SendToAll();

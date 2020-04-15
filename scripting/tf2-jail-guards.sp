@@ -12,8 +12,9 @@
 /*****************************/
 //Includes
 #include <sourcemod>
-#include <sourcemod-misc>
-#include <sourcemod-colors>
+#include <misc-sm>
+#include <misc-tf>
+#include <misc-colors>
 
 /*****************************/
 //ConVars
